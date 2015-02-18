@@ -1,0 +1,19 @@
+{
+  "name": "random-hash",
+  "version": "1.0.0",
+  "description": "Spit out some random hash ids",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PabloSichert/random-hash"
+  },
+  "author": "Pablo Sichert <mail@pablosichert.de>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PabloSichert/random-hash/issues"
+  },
+  "homepage": "https://github.com/PabloSichert/random-hash"
+}
