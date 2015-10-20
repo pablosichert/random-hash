@@ -10,8 +10,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var _crypto = require('crypto');
 
-var randomHash = (function () {
-  function randomHash() {
+var RandomHash = (function () {
+  function RandomHash() {
     var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 
     var _ref$hashLength = _ref.hashLength;
@@ -19,7 +19,7 @@ var randomHash = (function () {
     var _ref$charset = _ref.charset;
     var charset = _ref$charset === undefined ? 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_' : _ref$charset;
 
-    _classCallCheck(this, randomHash);
+    _classCallCheck(this, RandomHash);
 
     this.hashLength = hashLength;
     this.charset = charset;
@@ -27,7 +27,7 @@ var randomHash = (function () {
 
   // Contribution to Moritz Sichert https://gist.github.com/MoritzS/16c820f5e2d6132d7040
 
-  _createClass(randomHash, [{
+  _createClass(RandomHash, [{
     key: 'generate',
     value: function generate() {
       var byteLength;
@@ -43,10 +43,10 @@ var randomHash = (function () {
     }
   }]);
 
-  return randomHash;
+  return RandomHash;
 })();
 
-exports.randomHash = randomHash;
+exports['default'] = RandomHash;
 function bytesToChars(randomBytes, charset) {
   var bufferLength;
   var output;
@@ -75,3 +75,4 @@ function bytesToChars(randomBytes, charset) {
 
   return output;
 }
+module.exports = exports['default'];
