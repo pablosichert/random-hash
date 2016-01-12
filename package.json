@@ -1,6 +1,6 @@
 {
   "name": "random-hash",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Spit out some random hash ids",
   "main": "dist/index.js",
   "scripts": {
