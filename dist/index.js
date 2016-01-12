@@ -66,7 +66,10 @@ function bytesToChars(randomBytes, charset) {
   var randomArray;
 
   charset = charset;
-  randomArray = randomBytes.toJSON().data;
+  randomArray = randomBytes.toJSON();
+  if (randomArray.data) {
+    randomArray = randomArray.data;
+  }
   bufferLength = randomArray.length;
   output = '';
 
