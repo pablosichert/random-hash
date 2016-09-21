@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/PabloSichert/random-hash/issues"
   },
-  "homepage": "https://github.com/PabloSichert/random-hash"
+  "homepage": "https://github.com/PabloSichert/random-hash",
+  "devDependencies": {
+    "eslint": "^3.5.0"
+  }
 }
