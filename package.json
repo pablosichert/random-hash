@@ -4,6 +4,7 @@
   "description": "Spit out some random hash ids",
   "main": "dist/index.js",
   "scripts": {
+    "compile": "babel ./lib --out-dir ./dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,6 +18,8 @@
   },
   "homepage": "https://github.com/PabloSichert/random-hash",
   "devDependencies": {
+    "babel-cli": "^6.14.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.14.0",
     "eslint": "^3.5.0"
   }
 }
