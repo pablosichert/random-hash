@@ -11,7 +11,7 @@ npm install random-hash
 ## Usage
 Generating hashes - optional configuration in function argument
 ```js
-import { generateHash } from 'random-hash';
+import generateHash from 'random-hash';
 
 console.log(generateHash()); // '0yyv6Z'
 
@@ -22,9 +22,9 @@ console.log(generateHash({
 })); // '------'
 ```
 
-Creating a function object that stores its configuration
+Creating a stateful function object that stores its configuration and can be manipulated from the outside
 ```js
-import RandomHash from 'random-hash';
+import { RandomHash } from 'random-hash';
 
 // With options (default values)
 let generateHash = new RandomHash({
