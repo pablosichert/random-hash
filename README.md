@@ -13,13 +13,13 @@ Generating hashes - optional configuration in function argument
 ```js
 import generateHash from 'random-hash';
 
-console.log(generateHash()); // '0yyv6Z'
+generateHash(); // '0yyv6Z'
 
-console.log(generateHash({ length: 4 })); // 'KLgF'
+generateHash({ length: 4 }); // 'KLgF'
 
-console.log(generateHash({
+generateHash({
     charset: '----------------------------------------------------------------'
-})); // '------'
+}); // '------'
 ```
 
 Creating a stateful function object that stores its configuration and can be manipulated from the outside
@@ -35,21 +35,21 @@ let generateHash = new RandomHash({
 // Without options
 let generateHash = new RandomHash;
 
-console.log(generateHash()); // 'VE5xn-'
+generateHash(); // 'VE5xn-'
 
-console.log(generateHash({ length: 4 })); // 'E2s4'
+generateHash({ length: 4 }); // 'E2s4'
 
-console.log(generateHash()); // 'O1oJkK'
+generateHash(); // 'O1oJkK'
 
 // Permanently setting hash length
 generateHash.length = 4;
 
-console.log(generateHash()); // 'AyHK'
+generateHash(); // 'AyHK'
 
 // Permanently setting charset
 generateHash.charset = '----------------------------------------------------------------';
 
-console.log(generateHash()); // '----'
+generateHash(); // '----'
 ```
 
 [npm-url]: https://npmjs.org/package/random-hash
