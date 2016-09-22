@@ -9,6 +9,20 @@ npm install random-hash
 ```
 
 ## Usage
+Generating hashes - optional configuration in function argument
+```js
+import { generateHash } from 'random-hash';
+
+console.log(generateHash()); // '0yyv6Z'
+
+console.log(generateHash({ length: 4 })); // 'KLgF'
+
+console.log(generateHash({
+    charset: '----------------------------------------------------------------'
+})); // '------'
+```
+
+Creating a function object that stores its configuration
 ```js
 import RandomHash from 'random-hash';
 
@@ -27,10 +41,12 @@ console.log(generateHash({ length: 4 })); // 'E2s4'
 
 console.log(generateHash()); // 'O1oJkK'
 
+// Permanently setting hash length
 generateHash.length = 4;
 
 console.log(generateHash()); // 'AyHK'
 
+// Permanently setting charset
 generateHash.charset = '----------------------------------------------------------------';
 
 console.log(generateHash()); // '----'
