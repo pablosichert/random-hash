@@ -8,8 +8,11 @@
   ],
   "scripts": {
     "compile": "babel ./lib --out-dir ./dist",
+    "coverage": "nyc npm test && nyc report --reporter=text-lcov",
     "lint": "eslint .",
-    "test": "mocha --compilers js:babel-core/register"
+    "report-coverage": "npm run coverage | coveralls",
+    "test": "mocha --compilers js:babel-core/register",
+    "travis": "npm run lint && npm run compile && npm run test"
   },
   "repository": {
     "type": "git",
@@ -25,8 +28,10 @@
     "babel-cli": "^6.14.0",
     "babel-core": "^6.14.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.14.0",
+    "coveralls": "^2.11.14",
     "eslint": "^3.5.0",
     "mocha": "^3.0.2",
+    "nyc": "^8.3.0",
     "unexpected": "^10.17.2"
   }
 }

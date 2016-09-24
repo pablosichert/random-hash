@@ -1,5 +1,7 @@
 # random-hash
 [![NPM version][npm-image]][npm-url]
+[![Build status][travis-image]][travis-url]
+[![Coverage status][coveralls-image]][coveralls-url]
 [![Dependency status][david-dm-image]][david-dm-url]
 [![Dev dependency status][david-dm-dev-image]][david-dm-dev-url]
 
@@ -54,6 +56,10 @@ generateHash(); // '----'
 
 [npm-url]: https://npmjs.org/package/random-hash
 [npm-image]: https://badge.fury.io/js/random-hash.svg
+[travis-url]: https://travis-ci.org/PabloSichert/random-hash
+[travis-image]: http://img.shields.io/travis/PabloSichert/random-hash.svg
+[coveralls-url]:https://coveralls.io/r/PabloSichert/random-hash
+[coveralls-image]:https://coveralls.io/repos/PabloSichert/random-hash/badge.svg
 [david-dm-url]:https://david-dm.org/PabloSichert/random-hash
 [david-dm-image]:https://david-dm.org/PabloSichert/random-hash.svg
 [david-dm-dev-url]:https://david-dm.org/PabloSichert/random-hash#info=devDependencies
