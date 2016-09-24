@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "compile": "babel ./lib --out-dir ./dist",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint .",
   },
   "repository": {
     "type": "git",
