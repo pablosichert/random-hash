@@ -9,6 +9,7 @@
   "scripts": {
     "compile": "babel ./lib --out-dir ./dist",
     "lint": "eslint .",
+    "test": "mocha --compilers js:babel-core/register"
   },
   "repository": {
     "type": "git",
@@ -22,7 +23,10 @@
   "homepage": "https://github.com/PabloSichert/random-hash",
   "devDependencies": {
     "babel-cli": "^6.14.0",
+    "babel-core": "^6.14.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.14.0",
-    "eslint": "^3.5.0"
+    "eslint": "^3.5.0",
+    "mocha": "^3.0.2",
+    "unexpected": "^10.17.2"
   }
 }
