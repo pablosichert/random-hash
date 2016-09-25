@@ -20,8 +20,8 @@ generateHash(); // '0yyv6Z'
 generateHash({ length: 4 }); // 'KLgF'
 
 generateHash({
-    charset: '----------------------------------------------------------------'
-}); // '------'
+    charset: ['😁', '😎', '😍', '😇', '🤓', '🤔', '😴', '😝']
+}); // '😝🤓😎😇😝🤔'
 ```
 
 Creating a stateful function object that stores its configuration and can be manipulated from the outside
@@ -49,9 +49,9 @@ generateHash.length = 4;
 generateHash(); // 'AyHK'
 
 // Permanently setting charset
-generateHash.charset = '----------------------------------------------------------------';
+generateHash.charset = ['😁', '😎', '😍', '😇', '🤓', '🤔', '😴'];
 
-generateHash(); // '----'
+generateHash(); // '😴😁😁😍'
 ```
 
 [npm-url]: https://npmjs.org/package/random-hash
