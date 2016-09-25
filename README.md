@@ -22,16 +22,22 @@ generateHash({ length: 4 }); // 'KLgF'
 generateHash({
     charset: ['😁', '😎', '😍', '😇', '🤓', '🤔', '😴', '😝']
 }); // '😝🤓😎😇😝🤔'
+
+generateHash({
+    rng: randomBytes => new Array(randomBytes).fill(0)
+}); // 'aaaaaa'
 ```
 
 Creating a stateful function object that stores its configuration and can be manipulated from the outside
 ```js
 import { RandomHash } from 'random-hash';
+import { randomBytes } from 'crypto';
 
 // With options (default values)
 let generateHash = new RandomHash({
     length: 6,
-    charset: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_'
+    charset: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_',
+    rng: randomBytes
 });
 
 // Without options
@@ -52,6 +58,10 @@ generateHash(); // 'AyHK'
 generateHash.charset = ['😁', '😎', '😍', '😇', '🤓', '🤔', '😴'];
 
 generateHash(); // '😴😁😁😍'
+
+generateHash.rng = randomBytes => new Array(randomBytes).fill(0);
+
+generateHash(); // '😁😁😁😁'
 ```
 
 [npm-url]: https://npmjs.org/package/random-hash
