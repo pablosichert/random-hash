@@ -3,7 +3,7 @@ import expect from 'unexpected';
 
 import {
     generateHash,
-    bytesToChars,
+    baseN,
     CharsetLengthError
 } from '../lib';
 
@@ -57,25 +57,37 @@ describe('generateHash', () => {
 
         describe('{ charset }', () => {
             it('should be able to specify the charset', () => {
-                const charset = ['😁', '😎', '😍', '😇', '🤓', '🤔', '😴', '😝', '🤑', '🤒', '😭', '😈', '👻', '👽', '🤖', '💩', '🎅', '💪', '👈', '👉', '👆', '👇', '✌', '✋', '👌', '👍', '👎', '👐', '👂', '👃', '👣', '👁', '💋', '❤', '💣', '👕', '👖', '🐵', '🦁', '🐮', '🐷', '🐘', '🐔', '🐸', '🐊', '🐢', '🐍', '🐬', '🐟', '🐙', '🦀', '🐝', '🕷', '🌸', '🌲', '🍉', '🍎', '🍄', '🌍', '🚁', '🚀', '☀', '⚡', '❄'];
+                for (let i = 1; i < 10; i++) {
+                    const charset = new Proxy({
+                        length: Math.pow(2, i)
+                    }, {
+                        get: (target, name) => {
+                            return target[name] || 'foo';
+                        }
+                    });
 
-                expect(generateHash({ charset }), 'to be', '😁🎅😁😎😁😁');
+                    expect(generateHash({ charset }), 'to be', 'foofoofoofoofoofoo');
+                }
             });
 
-            it('should throw if charset does not contain exactly 64 characters', () => {
-                const charset = ['a, b, c'];
+            it('should throw if charset does not contain 2^n characters', () => {
+                for (let i = 1; i < 10; i++) {
+                    const charset = {
+                        length: Math.pow(2, i) + 1
+                    };
 
-                try {
-                    generateHash({ charset });
-                } catch (error) {
-                    expect(error, 'to be a', CharsetLengthError);
+                    try {
+                        generateHash({ charset });
+                    } catch (error) {
+                        expect(error, 'to be a', CharsetLengthError);
+                    }
                 }
             });
         });
     });
 });
 
-describe('bytesToChars', () => {
+describe('baseN', () => {
     const arrayToBytes = array => {
         const bits = Array.from(array.reduce((prev, curr) => {
             return prev + curr;
@@ -85,7 +97,11 @@ describe('bytesToChars', () => {
 
         while (bits.length) {
             let byte = bits.splice(0, 8);
-            byte = Number('0b' + byte.join(''));
+            if (byte.length !== 8) {
+                byte = Number('0b' + byte.join('')) << 8 - byte.length;
+            } else {
+                byte = Number('0b' + byte.join(''));
+            }
 
             packs.push(byte);
         }
@@ -94,47 +110,76 @@ describe('bytesToChars', () => {
     };
 
     it('should convert an iterable containing bytes to chars', () => {
-        const selectFromChars = ['000001', '000010', '000011', '000100'];
-
-        const randomIterable = arrayToBytes(selectFromChars);
-        // ['00000100', '00100000', '11000100']
+        const selectFromChars = ['000', '001', '010', '011', '100', '101', '110', '111'];
+        /*
+            0 0 0|0 0 1|0 1 0|0 1 1|1 0 0|1 0 1|1 1 0|1 1 1 = selectFromChars
+            0 0 0 0 0 1 0 1|0 0 1 1 1 0 0 1|0 1 1 1 0 1 1 1 = bytes
+        */
+        const bytes = arrayToBytes(selectFromChars);
+        // ['00000101', '00111001', '01110111']
 
         const charset = {
-            length: 64,
-            0b000001/* 1 */: 'A',
-            0b000010/* 2 */: 'B',
-            0b000011/* 3 */: 'C',
-            0b000100/* 4 */: 'D'
+            length: 8,
+            0b000/* 0 */: 'A',
+            0b001/* 1 */: 'B',
+            0b010/* 2 */: 'C',
+            0b011/* 3 */: 'D',
+            0b100/* 4 */: 'E',
+            0b101/* 5 */: 'F',
+            0b110/* 6 */: 'G',
+            0b111/* 7 */: 'H'
         };
 
-        const chars = bytesToChars(randomIterable, charset);
+        const chars = baseN(bytes, charset);
 
-        expect(chars, 'to satisfy', ['A', 'B', 'C', 'D']);
+        expect(chars, 'to satisfy', ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']);
     });
 
-    it('should pick from any charset that has a getter and length 64', () => {
-        const randomIterable = Buffer.from([1, 2, 3]);
+    it('should pick from any charset that has a getter and length 2^n', () => {
+        for (let i = 1; i < 10; i++) {
+            const charset = new Proxy({
+                length: Math.pow(2, i)
+            }, {
+                get: (target, name) => {
+                    return target[name] || 'foo';
+                }
+            });
 
-        const charset = new Proxy({
-            length: 64
-        }, {
-            get: (target, name) => {
-                return target[name] || 'foo';
+            const chars = baseN(randomBytes(1), charset);
+
+            expect(chars, 'to satisfy', expect.it('to have items satisfying',
+                'to be', 'foo'
+            ));
+        }
+    });
+
+    it('should throw if charset does not contain 2^n characters', () => {
+        for (let i = 1; i < 10; i++) {
+            const charset = {
+                length: Math.pow(2, i) + 1
+            };
+
+            try {
+                baseN(randomBytes(1), charset);
+            } catch (error) {
+                expect(error, 'to be a', CharsetLengthError);
             }
-        });
-
-        const chars = bytesToChars(randomIterable, charset);
-
-        expect(chars, 'to satisfy', ['foo', 'foo', 'foo', 'foo']);
+        }
     });
 
-    it('should throw if charset does not contain exactly 64 characters', () => {
-        const charset = ['a, b, c'];
+    it('should produce hashes of length ceil(byteLength * 8 / log2(charset.length))', () => {
+        for (let i = 1; i < 10; i++) {
+            const charset = {
+                length: Math.pow(2, i)
+            };
 
-        try {
-            bytesToChars(randomBytes(1), charset);
-        } catch (error) {
-            expect(error, 'to be a', CharsetLengthError);
+            for (let j = 1; j < 100; j++) {
+                const expectedLength = Math.ceil(j * 8 / i);
+
+                const hash = baseN(randomBytes(j), charset);
+
+                expect(hash.length, 'to be', expectedLength);
+            }
         }
     });
 });
