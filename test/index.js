@@ -64,8 +64,8 @@ describe('generateHash', () => {
             });
 
             it('should throw if charset does not contain 2^n characters', () => {
-                for (let i = 1; i < 10; i++) {
-                    const charset = {
+                for (let i = 0; i < 10; i++) {
+                    const charset = i && {
                         length: Math.pow(2, i) + 1
                     };
 
@@ -147,8 +147,8 @@ describe('baseN', () => {
     });
 
     it('should throw if charset does not contain 2^n characters', () => {
-        for (let i = 1; i < 10; i++) {
-            const charset = {
+        for (let i = 0; i < 10; i++) {
+            const charset = i && {
                 length: Math.pow(2, i) + 1
             };
 
