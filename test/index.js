@@ -3,6 +3,7 @@ import expect from 'unexpected';
 
 import {
     generateHash,
+    RandomHash,
     baseN,
     CharsetLengthError
 } from '../lib';
@@ -173,5 +174,64 @@ describe('baseN', () => {
                 expect(hash.length, 'to be', expectedLength);
             }
         }
+    });
+});
+
+describe('RandomHash', () => {
+    it('should return a generateHash() instance', () => {
+        const generateHash = new RandomHash;
+
+        expect(generateHash, 'to be a', RandomHash);
+        expect(generateHash, 'to be a function');
+    });
+
+    it('should save its options', () => {
+        const length = 123;
+        const charset = 'abcd';
+        const rng = () => [];
+
+        const generateHash = new RandomHash({
+            length,
+            charset,
+            rng
+        });
+
+        expect(generateHash.length, 'to be', 123);
+        expect(generateHash.charset, 'to be', 'abcd');
+        expect(generateHash.rng, 'to be', rng);
+    });
+
+    it('should be able to modify options', () => {
+        const length = 123;
+        const charset = 'abcd';
+        const rng = () => [];
+
+        const generateHash = new RandomHash;
+
+        generateHash.length = length;
+        generateHash.charset = charset;
+        generateHash.rng = rng;
+
+        expect(generateHash.length, 'to be', 123);
+        expect(generateHash.charset, 'to be', 'abcd');
+        expect(generateHash.rng, 'to be', rng);
+    });
+
+    it('should call generateHash depending on its internal options', () => {
+        const generateHash = new RandomHash;
+
+        expect(generateHash(), 'to match', /[a-zA-Z0-9_-]{6}/);
+
+        generateHash.length = 10;
+
+        expect(generateHash(), 'to match', /[a-zA-Z0-9_-]{10}/);
+
+        generateHash.charset = ['😁', '😎', '😍', '😇'];
+
+        expect(generateHash(), 'to match', /[😁😎😍😇]{10}/);
+
+        generateHash.rng = byteLength => new Array(byteLength).fill(0);
+
+        expect(generateHash(), 'to match', /[😁]{10}/);
     });
 });
