@@ -16,19 +16,11 @@ describe('generateHash', () => {
 
     describe('{ rng }', () => {
         it('should take a custom RNG', () => {
-            const rng = numBytes => {
-                const numBits = numBytes * 8;
-                const randomArray = new Array(numBits);
-
-                for (let i = 0; i < numBits; i += 2) {
-                    randomArray[i] = 1;
-                    randomArray[i + 1] = 0;
-                }
-
-                return Buffer.from(randomArray);
+            const rng = () => {
+                return [0b10101010, 0b10101010, 0b10101010];
             };
 
-            expect(generateHash({ rng }), 'to be', 'aqabaa');
+            expect(generateHash({ rng }), 'to be', 'QQQQ');
         });
     });
 
