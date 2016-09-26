@@ -1,6 +1,6 @@
 {
   "name": "random-hash",
-  "version": "3.0.1",
+  "version": "4.0.0",
   "description": "Generate random hashes with a fully customizable charset and configurable length",
   "main": "dist/index.js",
   "files": [
