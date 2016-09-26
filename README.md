@@ -34,14 +34,14 @@ import { RandomHash } from 'random-hash';
 import { randomBytes } from 'crypto';
 
 // With options (default values)
-let generateHash = new RandomHash({
+const generateHash = new RandomHash({
     length: 6,
     charset: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_',
     rng: randomBytes
 });
 
 // Without options
-let generateHash = new RandomHash;
+const generateHash = new RandomHash;
 
 generateHash(); // 'VE5xn-'
 
