@@ -10,6 +10,8 @@
     "compile": "babel ./lib --out-dir ./dist",
     "coverage": "nyc npm test && nyc report --reporter=text-lcov",
     "lint": "eslint .",
+    "prepublish": "rm -rf ./dist && npm run compile",
+    "preversion": "npm run lint && npm run test",
     "report-coverage": "npm run coverage | coveralls",
     "test": "mocha --compilers js:babel-core/register",
     "travis": "npm run lint && npm run compile && npm run test"
