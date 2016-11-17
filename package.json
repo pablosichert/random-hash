@@ -33,15 +33,15 @@
     "baseN"
   ],
   "devDependencies": {
-    "babel-cli": "^6.14.0",
-    "babel-core": "^6.14.0",
-    "babel-eslint": "^7.0.0",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.14.0",
-    "babel-plugin-transform-object-rest-spread": "^6.8.0",
-    "coveralls": "^2.11.14",
-    "eslint": "^3.5.0",
-    "mocha": "^3.0.2",
-    "nyc": "^8.3.0",
-    "unexpected": "^10.17.2"
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.18.2",
+    "babel-eslint": "^7.1.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.18.0",
+    "babel-plugin-transform-object-rest-spread": "^6.19.0",
+    "coveralls": "^2.11.15",
+    "eslint": "^3.10.2",
+    "mocha": "^3.1.2",
+    "nyc": "^9.0.1",
+    "unexpected": "^10.19.0"
   }
 }
